@@ -1,0 +1,16 @@
+#content {
+    display: flex;
+}
+
+@media (min-width: 400px) {
+    .todoBox {
+        margin: auto;
+        /* width: 100%; */
+    }
+}
+
+@media (max-width: 400px) {
+    .todoBox {
+        margin: 0;
+    }    
+}

@@ -1,3 +1,5 @@
+![alt text](https://github.com/kehtolaulu/todo-front/blob/master/pictures/Screenshot%20from%202020-03-09%2020-25-04.png "Todo app screenshot")
+
 ## Run frontend:
 
 To install and run backend see:

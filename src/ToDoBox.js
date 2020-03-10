@@ -1,7 +1,6 @@
 import ToDoList from './ToDoList.js';
 import ToDoForm from './ToDoForm.js';
 import React from 'react';
-import $ from 'jquery';
 
 class ToDoBox extends React.Component {
     constructor(props) {
@@ -12,52 +11,34 @@ class ToDoBox extends React.Component {
     }
 
     loadToDosFromServer() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            cache: false,
-            success: function (data) {
-                this.setState({ data: data });
-            }.bind(this),
-            error: function (xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+        fetch(this.props.url)
+            .then(response => response.json())
+            .then(todos => this.setState({ data: todos }));
     }
 
     handleToDoSubmit = (todo) => {
-        var todos = this.state.data;
-        todo.id = Date.now();
-        var newToDos = todos.concat([todo]);
-        this.setState({ data: newToDos });
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            type: 'POST',
-            data: todo,
-            success: function (data) {
-                this.setState({ data: data });
-            }.bind(this),
-            error: function (xhr, status, err) {
-                this.setState({ data: todos });
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
-    }
-
-    handleToDoDelete = (toDelete) => {
         fetch(this.props.url, {
-            method: 'DELETE',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(toDelete),
-        }).then(data => {
-            this.setState({ data: this.state.data.filter(todo => todo.id !== toDelete.id) });
-        }).catch(error => {
-            this.setState({ data: this.state.dataadd  });
-            console.error(this.props.url, error.toString())
+            body: JSON.stringify(todo)
+        }).then(response => response.json())
+            .then((todo) => {
+                let todos = this.state.data;
+                todos.push(todo);
+                this.setState({ data: todos });
+            });
+    }
+
+    handleToDoDelete = (toDelete) => {
+        fetch(this.props.url + "/" + toDelete.id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
+        this.setState({ data: this.state.data.filter(todo => todo.id !== toDelete.id) });
     }
 
     componentDidMount() {

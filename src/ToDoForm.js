@@ -24,15 +24,18 @@ class ToDoForm extends React.Component {
 
     render() {
         return (
-            <form className="todoForm" onSubmit={this.handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="To..."
-                    value={this.state.text}
-                    onChange={this.handleTextChange}
-                />
-                <input type="submit" value="Post" style={{ display: "none" }} />
-            </form>
+            <div className="formContainer">
+                <form className="todoForm" onSubmit={this.handleSubmit}>
+                    <input
+                        size="50"
+                        type="text"
+                        placeholder="Write to do here!"
+                        value={this.state.text}
+                        onChange={this.handleTextChange}
+                    />
+                    <input type="submit" value="Post" style={{ display: "none" }} />
+                </form>
+            </div>
         );
     }
 }

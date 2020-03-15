@@ -1,5 +1,5 @@
-import ToDoList from './ToDoList.js';
-import ToDoForm from './ToDoForm.js';
+import ToDoList from './ToDoList';
+import ToDoForm from './ToDoForm';
 import React from 'react';
 
 class ToDoBox extends React.Component {

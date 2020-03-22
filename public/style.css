@@ -43,10 +43,14 @@ h1 {
 
 #login-form {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     margin-top: -50px;
     margin-left: -150px;
     width: 300px;
     height: 100px;
-}​
+}
+
+#error {
+    color: red;
+}

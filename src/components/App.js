@@ -32,7 +32,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 }
 
 const isAuthenticated = () => {
-    return localStorage.jwt === "undefined" ? false : true;
+    return localStorage.jwt ? true : false;
 }
 
 export default App;

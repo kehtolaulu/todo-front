@@ -1,5 +1,6 @@
 import React from 'react';
 import apiUrl from '../config';
+import axios from 'axios';
 
 class Login extends React.Component {
     constructor(props) {
@@ -23,23 +24,18 @@ class Login extends React.Component {
         e.preventDefault();
         let username = this.state.username.trim();
         let password = this.state.password.trim();
-        fetch(apiUrl + "/login", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username: username, password: password })
+        axios.post(apiUrl + '/login', {
+            username: username,
+            password: password
         })
             .then(response => {
-                if (!response.ok) {
-                    debugger
-                    this.setState({ error: true });
-                } else {
-                    // response.json();
-                    localStorage.jwt = response.token;
-                    this.props.history.push("/todos")
-                }
+                localStorage.jwt = response.data.token;
+                this.props.history.push("/todos");
             })
+            .catch((error) => {
+                console.log(error);
+                this.setState({ error: true });
+            });
     }
 
     render() {

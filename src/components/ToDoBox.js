@@ -1,6 +1,7 @@
 import ToDoList from './ToDoList';
 import ToDoForm from './ToDoForm';
 import React from 'react';
+import apiUrl from '../config';
 
 class ToDoBox extends React.Component {
     constructor(props) {
@@ -11,9 +12,16 @@ class ToDoBox extends React.Component {
     }
 
     loadToDosFromServer() {
-        fetch(this.props.url)
+        fetch(apiUrl + '/todos', {
+            headers: {
+                'Authorization': localStorage.jwt
+            }
+        })
             .then(response => response.json())
-            .then(todos => this.setState({ data: todos }));
+            .then(todos => {
+                debugger
+                this.setState({ data: todos });
+            });
     }
 
     handleToDoSubmit = (todo) => {

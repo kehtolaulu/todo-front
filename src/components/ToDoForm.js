@@ -22,6 +22,11 @@ class ToDoForm extends React.Component {
         this.setState({ text: '' });
     }
 
+    signOut = (e) => {
+        e.preventDefault();
+        this.props.onSignOut();
+    }
+
     render() {
         return (
             <div className="formContainer">
@@ -34,6 +39,7 @@ class ToDoForm extends React.Component {
                         onChange={this.handleTextChange}
                     />
                     <input type="submit" value="Post" style={{ display: "none" }} />
+                    <button onClick={this.signOut}>Sign out</button>
                 </form>
             </div>
         );

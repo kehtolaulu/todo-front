@@ -1,18 +1,18 @@
 import React from 'react';
-import {Remarkable} from 'remarkable';
 
 class ToDo extends React.Component {
-    rawMarkup() {
-        var md = new Remarkable();
-        var rawMarkup = md.render(this.props.children.toString());
-        return { __html: rawMarkup };
+    text() {
+        return this.props.children.toString();
     }
     render() {
         return (
             <div className="todo">
-                <span dangerouslySetInnerHTML={this.rawMarkup()}></span>
-                <button onClick={this.props.onToDoDelete}>done</button>
-                <hr></hr>
+                <p>
+                    <span><input id="done" type="checkbox" onClick={this.props.onToDoDelete}></input></span>
+                    {this.text()}
+                    <span><button id="delete" onClick={this.props.onToDoDelete}>Delete</button></span>
+                    <hr></hr>
+                </p>
             </div>
         );
     }

@@ -13,10 +13,9 @@ class App extends React.Component {
             <div>
                 <Router>
                     <Switch>
-                        <Route path="/login" component={Login} />
-                        <Route exact path="/" component={Login} />
-                        {/* <Route path="/todos" render={() => <ToDoBox url={todosPath} pollInterval={2000000} />} /> */}
-                        <PrivateRoute path="/todos" component={() => <ToDoBox url={todosPath} pollInterval={2000000} />} />
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/"> {<Redirect to="/todos" />} </Route>
+                        <PrivateRoute exact path="/todos" component={() => <ToDoBox url={todosPath} pollInterval={2000000} />} />
                     </Switch>
                 </Router>
             </div>

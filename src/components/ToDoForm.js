@@ -39,7 +39,7 @@ class ToDoForm extends React.Component {
                         onChange={this.handleTextChange}
                     />
                     <input type="submit" value="Post" style={{ display: "none" }} />
-                    <button onClick={this.signOut}>Sign out</button>
+                    <button id="signOut" onClick={this.signOut}>Sign out</button>
                 </form>
             </div>
         );

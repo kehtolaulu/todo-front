@@ -5,7 +5,9 @@ class ToDoList extends React.Component {
     render() {
         var todoNodes = this.props.data.map((todo) => {
             return (
-                <ToDo key={todo.id} onToDoDelete={ () => this.props.handleToDoDelete(todo) }>
+                <ToDo key={todo.id} status={todo.status}
+                    onToDoDelete={() => this.props.handleToDoDelete(todo)}
+                    onStatusChange={() => this.props.handleStatusChange(todo)}>
                     {todo.text}
                 </ToDo>
             );

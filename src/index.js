@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ToDoBox from './ToDoBox.js';
+import App from './components/App'
 
 ReactDOM.render(
-    <ToDoBox url="http://localhost:3030/api/todos" pollInterval={2000000} />,
+    <App />,
     document.getElementById('content')
 );

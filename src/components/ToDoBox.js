@@ -1,6 +1,8 @@
-import ToDoList from './ToDoList.js';
-import ToDoForm from './ToDoForm.js';
+import ToDoList from './ToDoList';
+import ToDoForm from './ToDoForm';
 import React from 'react';
+import apiUrl from '../config';
+import { withRouter } from 'react-router-dom';
 
 class ToDoBox extends React.Component {
     constructor(props) {
@@ -11,15 +13,22 @@ class ToDoBox extends React.Component {
     }
 
     loadToDosFromServer() {
-        fetch(this.props.url)
+        fetch(apiUrl + '/todos', {
+            headers: {
+                'Authorization': localStorage.jwt
+            }
+        })
             .then(response => response.json())
-            .then(todos => this.setState({ data: todos }));
+            .then(todos => {
+                this.setState({ data: todos });
+            });
     }
 
     handleToDoSubmit = (todo) => {
         fetch(this.props.url, {
             method: 'POST',
             headers: {
+                'Authorization': localStorage.jwt,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(todo)
@@ -35,7 +44,7 @@ class ToDoBox extends React.Component {
         fetch(this.props.url + "/" + toDelete.id, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Authorization': localStorage.jwt
             }
         });
         this.setState({ data: this.state.data.filter(todo => todo.id !== toDelete.id) });
@@ -46,15 +55,19 @@ class ToDoBox extends React.Component {
         setInterval(this.loadToDosFromServer, this.props.pollInterval);
     }
 
+    handleSignOut = () => {
+        localStorage.removeItem("jwt");
+        this.props.history.push("/");
+    }
+
     render() {
         return (
             <div className="todoBox">
-                <h1>To do</h1>
+                <ToDoForm onToDoSubmit={this.handleToDoSubmit} onSignOut={this.handleSignOut} />
                 <ToDoList data={this.state.data} handleToDoDelete={this.handleToDoDelete} />
-                <ToDoForm onToDoSubmit={this.handleToDoSubmit} />
             </div>
         );
     }
 }
 
-export default ToDoBox;
+export default withRouter(ToDoBox);

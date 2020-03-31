@@ -1,5 +1,5 @@
 import React from 'react';
-import ToDo from './ToDo.js'
+import ToDo from './ToDo'
 
 class ToDoList extends React.Component {
     render() {

@@ -13,7 +13,7 @@ class App extends React.Component {
             <div>
                 <Router>
                     <Switch>
-                        <Route exact path="/login" component={Login} />
+                        <LoginRoute exact path="/login" component={Login} />
                         <Route exact path="/"> {<Redirect to="/todos" />} </Route>
                         <PrivateRoute exact path="/todos" component={() => <ToDoBox url={todosPath} pollInterval={2000000} />} />
                     </Switch>
@@ -21,6 +21,13 @@ class App extends React.Component {
             </div>
         );
     }
+}
+
+const LoginRoute = ({ component: Component, ...rest }) => {
+    return (
+        <Route {...rest}
+            render={props => (isAuthenticated() ? <Redirect to="/" /> : <Component {...props} />)} />
+    );
 }
 
 const PrivateRoute = ({ component: Component, ...rest }) => {

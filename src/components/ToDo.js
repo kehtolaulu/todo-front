@@ -13,7 +13,7 @@ class ToDo extends React.Component {
                 <p className={this.props.status} >
                     <span><input id="done"
                         type="checkbox"
-                        onClick={this.props.onStatusChange}
+                        onChange={this.props.onStatusChange}
                         checked={this.done()} >
                     </input>
                     </span>

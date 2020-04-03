@@ -26,8 +26,8 @@ class ToDoBox extends React.Component {
     }
 
     handleToDoSubmit = (todo) => {
-        todo.status = "New";
-        fetch(apiUrl, {
+        todo.status = "new";
+        fetch(apiUrl + '/todos', {
             method: 'POST',
             headers: {
                 'Authorization': localStorage.jwt,
@@ -35,21 +35,21 @@ class ToDoBox extends React.Component {
             },
             body: JSON.stringify(todo)
         }).then(response => response.json())
-            .then((todo) => {
+            .then((response) => {
                 let todos = this.state.data;
-                todos.push(todo);
+                todos.push(response.todo);
                 this.setState({ data: todos });
             });
     }
 
     handleToDoDelete = (toDelete) => {
-        fetch(apiUrl + "/" + toDelete.id, {
+        fetch(apiUrl + "/todos/" + toDelete._id, {
             method: 'DELETE',
             headers: {
                 'Authorization': localStorage.jwt
             }
         });
-        this.setState({ data: this.state.data.filter(todo => todo.id !== toDelete.id) });
+        this.setState({ data: this.state.data.filter(todo => todo._id !== toDelete._id) });
     }
 
     componentDidMount() {
@@ -74,7 +74,7 @@ class ToDoBox extends React.Component {
     }
 
     updateToDo(todo) {
-        axios.put(apiUrl + '/todos/' + todo.id, todo, {
+        axios.put(apiUrl + '/todos/' + todo._id, todo, {
             headers: {
                 'Authorization': localStorage.jwt
             }

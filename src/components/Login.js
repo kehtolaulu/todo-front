@@ -58,6 +58,7 @@ class Login extends React.Component {
                 />
                 <br />
                 <button id="loginButton" onClick={this.authenticate}>Login</button>
+                <a href="/signup">No account? Sign up</a>
                 <br />
                 <div id="error">{this.state.error && <p>Incorrect login or password</p>}</div>
             </form>

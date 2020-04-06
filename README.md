@@ -10,7 +10,7 @@ https://classic.yarnpkg.com/en/docs/install/#debian-stable
 ### `sudo apt update && sudo apt install --no-install-recommends yarn`
 
 To install dependencies:
-### `npm install`
+### `yarn install`
 
 Run the app in the development mode:
 ### `yarn start`

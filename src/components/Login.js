@@ -66,13 +66,15 @@ class Login extends React.Component {
                                         value={this.state.password}
                                         onChange={this.handlePasswordChange}
                                     />
-                                    <span className="helper-text" data-error="wrong" data-success="right">{this.state.error && <p>Bad credentials</p>}</span>
+                                    <div className="error">
+                                        {this.state.error && <span className="helper-text" data-error="wrong" data-success="right">Bad credentials</span>}
+                                    </div>
                                 </div>
 
                             </div>
                             <div className="card-action">
                                 <button id="login-button" onClick={this.authenticate} className="btn-large">Login</button>
-                                <a href="/signup" className="btn-flat">No account? Sign up</a>
+                                <a href="/signup" className="btn-flat">Sign up</a>
                             </div>
                         </div>
                     </form >

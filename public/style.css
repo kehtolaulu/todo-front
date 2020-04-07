@@ -81,3 +81,7 @@ h1 {
 #login-button {
     margin-right: 1.2rem;
 }
+
+.error {
+    position: absolute;
+}

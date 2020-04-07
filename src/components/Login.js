@@ -63,6 +63,7 @@ class Login extends React.Component {
                                     <input
                                         type="password"
                                         name="password"
+                                        className="validate"
                                         value={this.state.password}
                                         onChange={this.handlePasswordChange}
                                     />

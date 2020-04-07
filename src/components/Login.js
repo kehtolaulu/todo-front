@@ -1,6 +1,7 @@
 import React from 'react';
 import apiUrl from '../config';
 import axios from 'axios';
+import 'materialize-css';
 
 class Login extends React.Component {
     constructor(props) {
@@ -40,28 +41,43 @@ class Login extends React.Component {
 
     render() {
         return (
-            <form id="login-form">
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={this.state.username}
-                    onChange={this.handleUsernameChange}
-                />
-                <br />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={this.state.password}
-                    onChange={this.handlePasswordChange}
-                />
-                <br />
-                <button id="loginButton" onClick={this.authenticate}>Login</button>
-                <a href="/signup">No account? Sign up</a>
-                <br />
-                <div id="error">{this.state.error && <p>Incorrect login or password</p>}</div>
-            </form>
+            <div className="container">
+                <div className="row">
+                    <form className="col s4 offset-s4">
+                        <div className="card">
+                            <div className="card-content">
+                                <span className="card-title">Login</span>
+                                <div className="input-field">
+                                    <label htmlFor="username">Username</label>
+                                    <input
+                                        id="username"
+                                        type="text"
+                                        className="validate"
+                                        name="username"
+                                        value={this.state.username}
+                                        onChange={this.handleUsernameChange}
+                                    />
+                                </div>
+                                <div className="input-field">
+                                    <label htmlFor="password">Password</label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        value={this.state.password}
+                                        onChange={this.handlePasswordChange}
+                                    />
+                                    <span className="helper-text" data-error="wrong" data-success="right">{this.state.error && <p>Bad credentials</p>}</span>
+                                </div>
+
+                            </div>
+                            <div className="card-action">
+                                <button id="login-button" onClick={this.authenticate} className="btn-large">Login</button>
+                                <a href="/signup" className="btn-flat">No account? Sign up</a>
+                            </div>
+                        </div>
+                    </form >
+                </div>
+            </div>
         );
     }
 }

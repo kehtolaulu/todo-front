@@ -6,7 +6,6 @@
     }
 }
 
-
 /*@media (max-width: 400px) {
     .todoBox {
         margin: 0;
@@ -55,10 +54,6 @@ h1 {
     height: 100px;
 }
 
-#error {
-    color: red;
-}
-
 #done {
     width: 1.2em;
     margin: auto;
@@ -81,4 +76,8 @@ h1 {
 
 .done {
     text-decoration: line-through;
+}
+
+#login-button {
+    margin-right: 1.2rem;
 }

@@ -69,58 +69,59 @@ class SignUp extends React.Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="row">
-                    <form className="col s4 offset-s4">
-                        <div className="card">
-                            <div className="card-content">
-                                <span className="card-title">Sign up</span>
-                                <div className="input-field">
-                                    <input
-                                        id="username"
-                                        type="text"
-                                        name="username"
-                                        placeholder="Username"
-                                        className="validate"
-                                        value={this.state.username}
-                                        onChange={this.handleUsernameChange}
-                                    />
-                                    <div className="error">
-                                        <span className="helper-text" data-error="wrong" data-success="right">{this.state.usernameError}</span>
+            <div className="login">
+                <div className="container">
+                    <div className="row">
+                        <form className="col s4 offset-s4">
+                            <div className="card">
+                                <div className="card-content">
+                                    <span className="card-title">Sign up</span>
+                                    <div className="input-field">
+                                        <input
+                                            id="username"
+                                            type="text"
+                                            name="username"
+                                            placeholder="Username"
+                                            value={this.state.username}
+                                            onChange={this.handleUsernameChange}
+                                        />
+                                        <div className="error">
+                                            <span className="helper-text" data-error="wrong" data-success="right">{this.state.usernameError}</span>
+                                        </div>
+                                    </div>
+                                    <div className="input-field">
+                                        <input
+                                            id="password"
+                                            type="password"
+                                            name="password"
+                                            placeholder="Password"
+                                            value={this.state.password}
+                                            onChange={this.handlePasswordChange}
+                                        />
+                                        <div className="error">
+                                            <span className="helper-text" data-error="wrong" data-success="right">{this.state.passwordError}</span>
+                                        </div>
+                                    </div>
+                                    <div className="input-field">
+                                        <input
+                                            id="passwordTwice"
+                                            type="password"
+                                            name="passwordTwice"
+                                            placeholder="Password again"
+                                            value={this.state.passwordTwice}
+                                            onChange={this.handlePasswordTwiceChange}
+                                        />
+                                        <div className="error">
+                                            <span className="helper-text" data-error="wrong" data-success="right">{this.state.passwordTwiceError}</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="input-field">
-                                    <input
-                                        id="password"
-                                        type="password"
-                                        name="password"
-                                        placeholder="Password"
-                                        value={this.state.password}
-                                        onChange={this.handlePasswordChange}
-                                    />
-                                    <div className="error">
-                                        <span className="helper-text" data-error="wrong" data-success="right">{this.state.passwordError}</span>
-                                    </div>
-                                </div>
-                                <div className="input-field">
-                                    <input
-                                        id="passwordTwice"
-                                        type="password"
-                                        name="passwordTwice"
-                                        placeholder="Password again"
-                                        value={this.state.passwordTwice}
-                                        onChange={this.handlePasswordTwiceChange}
-                                    />
-                                    <div className="error">
-                                        <span className="helper-text" data-error="wrong" data-success="right">{this.state.passwordTwiceError}</span>
-                                    </div>
+                                <div className="card-action">
+                                    <button id="sign-up-button" onClick={this.signUp} className="btn-large brown lighten-2" disabled={this.state.passwordError || this.state.usernameError || this.state.passwordTwiceError}>Sign up</button>
                                 </div>
                             </div>
-                            <div className="card-action">
-                                <button id="signUpButton" onClick={this.signUp} className="btn-large" disabled={this.state.passwordError || this.state.usernameError || this.state.passwordTwiceError}>Sign up</button>
-                            </div>
-                        </div>
-                    </form >
+                        </form >
+                    </div>
                 </div>
             </div>
         );

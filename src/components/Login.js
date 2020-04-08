@@ -39,46 +39,46 @@ class Login extends React.Component {
             });
     }
 
-    render() {
+    render = () => {
         return (
-            <div className="container">
-                <div className="row">
-                    <form className="col s4 offset-s4">
-                        <div className="card">
-                            <div className="card-content">
-                                <span className="card-title">Login</span>
-                                <div className="input-field">
-                                    <label htmlFor="username">Username</label>
-                                    <input
-                                        id="username"
-                                        type="text"
-                                        className="validate"
-                                        name="username"
-                                        value={this.state.username}
-                                        onChange={this.handleUsernameChange}
-                                    />
-                                </div>
-                                <div className="input-field">
-                                    <label htmlFor="password">Password</label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        className="validate"
-                                        value={this.state.password}
-                                        onChange={this.handlePasswordChange}
-                                    />
-                                    <div className="error">
-                                        {this.state.error && <span className="helper-text" data-error="wrong" data-success="right">Bad credentials</span>}
+            <div className="login">
+                <div className="container">
+                    <div className="row">
+                        <form className="col s4 offset-s4">
+                            <div className="card">
+                                <div className="card-content">
+                                    <span className="card-title">Login</span>
+                                    <div className="input-field">
+                                        <input
+                                            id="username"
+                                            type="text"
+                                            placeholder="Username"
+                                            name="username"
+                                            value={this.state.username}
+                                            onChange={this.handleUsernameChange}
+                                        />
                                     </div>
-                                </div>
+                                    <div className="input-field">
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            placeholder="Password"
+                                            value={this.state.password}
+                                            onChange={this.handlePasswordChange}
+                                        />
+                                        <div className="error">
+                                            {this.state.error && <span className="helper-text" data-error="wrong" data-success="right">Bad credentials</span>}
+                                        </div>
+                                    </div>
 
+                                </div>
+                                <div className="card-action">
+                                    <button id="login-button" onClick={this.authenticate} className="btn-large brown lighten-2">Login</button>
+                                    <a href="/signup" className="btn-flat black-text">Sign up</a>
+                                </div>
                             </div>
-                            <div className="card-action">
-                                <button id="login-button" onClick={this.authenticate} className="btn-large">Login</button>
-                                <a href="/signup" className="btn-flat">Sign up</a>
-                            </div>
-                        </div>
-                    </form >
+                        </form >
+                    </div>
                 </div>
             </div>
         );

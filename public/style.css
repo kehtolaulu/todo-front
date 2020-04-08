@@ -6,75 +6,35 @@
     }
 }
 
-/*@media (max-width: 400px) {
+@media (max-width: 400px) {
     .todoBox {
         margin: 0;
     }
-} */
-
-.formContainer {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: white;
-    padding: 1%;
-    padding-left: 22%;
-}
-
-.todoForm {
-    margin-bottom: 1%;
-    margin-top: 1%;
 }
 
 .todo {
     word-wrap: break-word;
 }
 
-.todoList {
-    margin-top: 8em;
-}
-
-#content {
-    margin-top: 110px;
-}
-
 h1 {
     margin-top: 0;
 }
 
-#login-form {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -150px;
-    width: 300px;
-    height: 100px;
-}
-
-#done {
+/* .done {
     width: 1.2em;
     margin: auto;
     margin-right: 1em;
-}
+} */
 
-#delete {
+.delete-button {
     float: right;
-    color: red;
-}
-
-#signOut {
-    float: right;
-    margin-right: 22em;
 }
 
 #status {
     color: green;
 }
 
-.done {
+.todo-done {
     text-decoration: line-through;
 }
 
@@ -84,4 +44,16 @@ h1 {
 
 .error {
     position: absolute;
+}
+
+.login {
+    margin-top: 110px;
+}
+
+.todo-list {
+    margin-top: 2.5rem;
+}
+
+.todo-item {
+    margin: auto;
 }

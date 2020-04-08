@@ -22,16 +22,12 @@ class ToDoForm extends React.Component {
         this.setState({ text: '' });
     }
 
-    signOut = (e) => {
-        e.preventDefault();
-        this.props.onSignOut();
-    }
-
-    render() {
+    render = () => {
         return (
-            <div className="formContainer">
-                <form className="todoForm" onSubmit={this.handleSubmit}>
+            <div className="form-container">
+                <form className="todo-form" onSubmit={this.handleSubmit}>
                     <input
+                    className="input-field"
                         size="50"
                         type="text"
                         placeholder="Write to do here!"
@@ -39,7 +35,6 @@ class ToDoForm extends React.Component {
                         onChange={this.handleTextChange}
                     />
                     <input type="submit" value="Post" style={{ display: "none" }} />
-                    <button id="signOut" onClick={this.signOut}>Sign out</button>
                 </form>
             </div>
         );

@@ -9,18 +9,27 @@ class ToDo extends React.Component {
     }
     render = () => {
         return (
-            <div className="todo" >
-                <p className={this.props.status} >
-                    <span><input id="done"
-                        type="checkbox"
-                        onChange={this.props.onStatusChange}
-                        checked={this.done()} >
-                    </input>
-                    </span>
-                    {this.text()} <span><a id="delete" onClick={this.props.onToDoDelete}> Delete </a></span >
-                </p>
+            <div className="todo row">
+                <form className="todo-item col">
+                    <label>
+                        <input className="done"
+                            type="checkbox"
+                            onChange={this.props.onStatusChange}
+                            checked={this.done()} >
+                        </input>
+                        <span></span>
+                    </label>
+                </form>
+                <span className={"todo-" + this.props.status}>
+                    {this.text()}
+                </span>
+                <span>
+                    <button className="delete-button btn-flat black-text" onClick={this.props.onToDoDelete}>
+                        <i class="material-icons">delete</i>
+                    </button>
+                </span >
                 <hr></hr>
-            </div>
+            </div >
         );
     }
 }

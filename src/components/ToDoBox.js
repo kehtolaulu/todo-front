@@ -13,7 +13,7 @@ class ToDoBox extends React.Component {
         };
     }
 
-    loadToDosFromServer() {
+    loadToDosFromServer = () => {
         fetch(apiUrl + '/todos', {
             headers: {
                 'Authorization': localStorage.jwt
@@ -52,7 +52,7 @@ class ToDoBox extends React.Component {
         this.setState({ data: this.state.data.filter(todo => todo._id !== toDelete._id) });
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         this.loadToDosFromServer();
         setInterval(this.loadToDosFromServer, this.props.pollInterval);
     }
@@ -73,7 +73,7 @@ class ToDoBox extends React.Component {
         this.setState({ data: todos });
     }
 
-    updateToDo(todo) {
+    updateToDo = (todo) => {
         axios.put(apiUrl + '/todos/' + todo._id, todo, {
             headers: {
                 'Authorization': localStorage.jwt
@@ -81,11 +81,21 @@ class ToDoBox extends React.Component {
         });
     }
 
-    render() {
+    render = () => {
         return (
-            <div className="todoBox">
-                <ToDoForm onToDoSubmit={this.handleToDoSubmit} onSignOut={this.handleSignOut} />
-                <ToDoList data={this.state.data} handleToDoDelete={this.handleToDoDelete} handleStatusChange={this.handleStatusChange} />
+            <div>
+                <nav>
+                    <div className="nav-wrapper brown lighten-3">
+                        <ul id="nav-mobile" className="right hide-on-med-and-down">
+                            <li><a className="black-text" onClick={this.handleSignOut}>Sign out</a></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div className="todoBox">
+                    <ToDoForm onToDoSubmit={this.handleToDoSubmit} />
+                    <ToDoList data={this.state.data} handleToDoDelete={this.handleToDoDelete} handleStatusChange={this.handleStatusChange} />
+                </div>
             </div>
         );
     }

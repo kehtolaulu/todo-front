@@ -7,7 +7,7 @@ class ToDo extends React.Component {
     done = () => {
         return this.props.status === "done";
     }
-    render = () => {
+    render() {
         return (
             <div className="todo row">
                 <form className="todo-item col">

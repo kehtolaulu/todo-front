@@ -22,7 +22,7 @@ class ToDoForm extends React.Component {
         this.setState({ text: '' });
     }
 
-    render = () => {
+    render() {
         return (
             <div className="form-container">
                 <form className="todo-form" onSubmit={this.handleSubmit}>

@@ -39,7 +39,7 @@ class Login extends React.Component {
             });
     }
 
-    render = () => {
+    render() {
         return (
             <div className="login">
                 <div className="container">

@@ -2,7 +2,7 @@ import React from 'react';
 import ToDo from './ToDo'
 
 class ToDoList extends React.Component {
-    render = () => {
+    render() {
         var todoNodes = this.props.data.map((todo) => {
             return (
                 <ToDo key={todo._id} status={todo.status}

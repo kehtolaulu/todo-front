@@ -58,7 +58,7 @@ class SignUp extends React.Component {
             username: username,
             password: password
         })
-            .then(response => {
+            .then(response => { // eslint-disable-line no-unused-vars
                 this.props.history.push("/login");
             })
             .catch((error) => {

@@ -68,7 +68,7 @@ class ToDoBox extends React.Component {
             todo.status = "new";
         } else {
             todo.status = "done";
-        };
+        }
         this.updateToDo(todo);
         this.setState({ data: todos });
     }
@@ -81,7 +81,7 @@ class ToDoBox extends React.Component {
         });
     }
 
-    render = () => {
+    render() {
         return (
             <div>
                 <nav>

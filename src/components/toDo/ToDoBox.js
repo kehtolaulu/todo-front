@@ -1,7 +1,7 @@
 import ToDoList from './ToDoList';
 import ToDoForm from './ToDoForm';
 import React from 'react';
-import apiUrl from '../config';
+import apiUrl from '../../config';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
@@ -54,7 +54,6 @@ class ToDoBox extends React.Component {
 
     componentDidMount = () => {
         this.loadToDosFromServer();
-        setInterval(this.loadToDosFromServer, this.props.pollInterval);
     }
 
     handleSignOut = () => {
@@ -94,7 +93,11 @@ class ToDoBox extends React.Component {
                 </nav>
                 <div className="todoBox">
                     <ToDoForm onToDoSubmit={this.handleToDoSubmit} />
-                    <ToDoList data={this.state.data} handleToDoDelete={this.handleToDoDelete} handleStatusChange={this.handleStatusChange} />
+                    <ToDoList
+                        data={this.state.data}
+                        handleToDoDelete={this.handleToDoDelete}
+                        handleStatusChange={this.handleStatusChange}
+                    />
                 </div>
             </div>
         );

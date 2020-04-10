@@ -27,7 +27,7 @@ class ToDoForm extends React.Component {
             <div className="form-container">
                 <form className="todo-form" onSubmit={this.handleSubmit}>
                     <input
-                    className="input-field"
+                        className="input-field"
                         size="50"
                         type="text"
                         placeholder="Write to do here!"

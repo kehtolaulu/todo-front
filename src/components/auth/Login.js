@@ -1,9 +1,8 @@
 import React from 'react';
-import apiUrl from '../../config';
-import axios from 'axios';
 import 'materialize-css';
 import UsernameField from './UsernameField';
 import PasswordField from './PasswordField';
+import { authenticate } from '../../api/auth'
 
 class Login extends React.Component {
     constructor(props) {
@@ -23,22 +22,15 @@ class Login extends React.Component {
         this.setState({ password: e.target.value });
     }
 
-    authenticate = (e) => {
+    onLogin = (e) => {
         e.preventDefault();
         let username = this.state.username.trim();
         let password = this.state.password.trim();
-        axios.post(apiUrl + '/login', {
-            username: username,
-            password: password
-        })
-            .then(response => {
-                localStorage.jwt = response.data.token;
-                this.props.history.push("/todos");
-            })
-            .catch((error) => {
-                console.log(error);
-                this.setState({ error: 'Bad credentials' });
-            });
+        authenticate(username, password).then(_response => {
+            this.props.history.push("/todos");
+        }).catch(_error => {
+            this.setState({ error: 'Bad credentials' });
+        });
     }
 
     render() {
@@ -59,7 +51,7 @@ class Login extends React.Component {
                                         error={this.state.error} />
                                 </div>
                                 <div className="card-action">
-                                    <button onClick={this.authenticate} className="btn-large brown lighten-2 login-button">Login</button>
+                                    <button onClick={this.onLogin} className="btn-large brown lighten-2 login-button">Login</button>
                                     <a href="/signup" className="btn-flat black-text">Sign up</a>
                                 </div>
                             </div>

@@ -1,9 +1,8 @@
 import ToDoList from './ToDoList';
 import ToDoForm from './ToDoForm';
 import React from 'react';
-import apiUrl from '../../config';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
+import { getToDos, saveToDo, deleteToDo, updateToDo } from '../../api/todos';
 
 class ToDoBox extends React.Component {
     constructor(props) {
@@ -14,28 +13,14 @@ class ToDoBox extends React.Component {
     }
 
     loadToDosFromServer = () => {
-        fetch(apiUrl + '/todos', {
-            headers: {
-                'Authorization': localStorage.jwt
-            }
-        })
-            .then(response => response.json())
-            .then(todos => {
-                this.setState({ data: todos });
-            });
+        getToDos().then(todos => {
+            this.setState({ data: todos });
+        });
     }
 
     handleToDoSubmit = (todo) => {
         todo.status = "new";
-        fetch(apiUrl + '/todos', {
-            method: 'POST',
-            headers: {
-                'Authorization': localStorage.jwt,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(todo)
-        }).then(response => response.json())
-            .then((response) => {
+        saveToDo(todo).then((response) => {
                 let todos = this.state.data;
                 todos.push(response.todo);
                 this.setState({ data: todos });
@@ -43,12 +28,7 @@ class ToDoBox extends React.Component {
     }
 
     handleToDoDelete = (toDelete) => {
-        fetch(apiUrl + "/todos/" + toDelete._id, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': localStorage.jwt
-            }
-        });
+        deleteToDo(toDelete);
         this.setState({ data: this.state.data.filter(todo => todo._id !== toDelete._id) });
     }
 
@@ -68,16 +48,8 @@ class ToDoBox extends React.Component {
         } else {
             todo.status = "done";
         }
-        this.updateToDo(todo);
+        updateToDo(todo);
         this.setState({ data: todos });
-    }
-
-    updateToDo = (todo) => {
-        axios.put(apiUrl + '/todos/' + todo._id, todo, {
-            headers: {
-                'Authorization': localStorage.jwt
-            }
-        });
     }
 
     render() {

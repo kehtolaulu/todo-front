@@ -1,8 +1,7 @@
 import React from 'react';
-import apiUrl from '../../config';
-import axios from 'axios';
 import UsernameField from './UsernameField';
 import PasswordField from './PasswordField';
+import { register } from '../../api/auth'
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -60,17 +59,12 @@ class SignUp extends React.Component {
         if (!username.length || !password.length) {
             this.setState({ passwordTwiceError: "Fill fields!" })
         }
-        axios.post(apiUrl + '/signup', {
-            username: username,
-            password: password
+        register(username, password).then(_response => {
+            this.props.history.push("/login");
         })
-            .then(response => { // eslint-disable-line no-unused-vars
-                this.props.history.push("/login");
-            })
             .catch((error) => {
-                console.log(error);
                 this.setState({ errorText: error });
-            });
+            });;
     }
 
     render() {

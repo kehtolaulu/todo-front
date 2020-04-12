@@ -1,5 +1,3 @@
-![alt text](https://github.com/kehtolaulu/todo-front/blob/master/pictures/Screenshot%20from%202020-03-09%2020-25-04.png "Todo app screenshot")
-
 ## Run frontend:
 
 To install and run backend see:
@@ -12,7 +10,7 @@ https://classic.yarnpkg.com/en/docs/install/#debian-stable
 ### `sudo apt update && sudo apt install --no-install-recommends yarn`
 
 To install dependencies:
-### `npm install`
+### `yarn install`
 
 Run the app in the development mode:
 ### `yarn start`

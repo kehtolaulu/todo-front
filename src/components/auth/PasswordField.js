@@ -1,5 +1,3 @@
-import React from 'react'
-
 const PasswordField = ({ placeholder = "Password", value, onChange, error }) => (
     <div className="input-field">
         <input

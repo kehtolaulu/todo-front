@@ -31,6 +31,12 @@
             {
                 "allowArrowFunctions": true
             }
+        ],
+        "no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_"
+            }
         ]
     }
 }

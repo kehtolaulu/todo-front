@@ -1,5 +1,3 @@
-import React from 'react'
-
 const UsernameField = ({ value, onChange, error }) => (
     <div className="input-field">
         <input

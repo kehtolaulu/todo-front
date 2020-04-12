@@ -16,38 +16,35 @@ class SignUp extends React.Component {
         };
     }
 
-    disabled = () => {
+    canSignUp = () => {
         return this.state.passwordError || this.state.usernameError || this.state.passwordTwiceError;
     }
 
     handleUsernameChange = (e) => {
         let newUsername = e.target.value;
+        this.setState({ username: newUsername });
         if (newUsername.length < 6) {
-            this.setState({ username: e.target.value });
             this.setState({ usernameError: 'Username must be 6 chars min' })
         } else {
-            this.setState({ username: e.target.value });
             this.setState({ usernameError: '' })
         }
     }
 
     handlePasswordChange = (e) => {
         let newPassword = e.target.value;
+        this.setState({ password: newPassword });
         if (newPassword.length < 6) {
-            this.setState({ password: e.target.value });
             this.setState({ passwordError: 'Password must be 6 chars min' });
         } else {
-            this.setState({ password: e.target.value });
             this.setState({ passwordError: '' });
         }
     }
 
     handlePasswordTwiceChange = (e) => {
+        this.setState({ passwordTwice: e.target.value });
         if (this.state.password !== e.target.value) {
-            this.setState({ passwordTwice: e.target.value });
             this.setState({ passwordTwiceError: 'Passwords should match' });
         } else {
-            this.setState({ passwordTwice: e.target.value });
             this.setState({ passwordTwiceError: '' });
         }
     }
@@ -62,9 +59,9 @@ class SignUp extends React.Component {
         register(username, password).then(_response => {
             this.props.history.push("/login");
         })
-            .catch((error) => {
+            .catch(error => {
                 this.setState({ errorText: error });
-            });;
+            });
     }
 
     render() {
@@ -93,7 +90,7 @@ class SignUp extends React.Component {
                                     />
                                 </div>
                                 <div className="card-action">
-                                    <button onClick={this.signUp} className="btn-large brown lighten-2 sign-up-button" disabled={this.disabled()}>
+                                    <button onClick={this.signUp} className="btn-large brown lighten-2 sign-up-button" disabled={this.canSignUp()}>
                                         Sign up
                                     </button>
                                 </div>

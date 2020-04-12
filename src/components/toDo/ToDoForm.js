@@ -34,7 +34,7 @@ class ToDoForm extends React.Component {
                         value={this.state.text}
                         onChange={this.handleTextChange}
                     />
-                    <input type="submit" value="Post" style={{ display: "none" }} />
+                    <input type="submit" value="Post" className="hide" />
                 </form>
             </div>
         );

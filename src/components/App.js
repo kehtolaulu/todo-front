@@ -1,6 +1,6 @@
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import ToDoBox from './toDo/ToDoBox';
+import ToDoPage from './toDo/ToDoPage';
 import Login from './auth/Login';
 import SignUp from './auth/SignUp';
 import React from 'react';
@@ -13,7 +13,7 @@ class App extends React.Component {
                     <LoginRoute exact path="/signup" component={SignUp} />
                     <LoginRoute exact path="/login" component={Login} />
                     <Route exact path="/"> {<Redirect to="/todos" />} </Route>
-                    <PrivateRoute exact path="/todos" component={ToDoBox} />
+                    <PrivateRoute exact path="/todos" component={ToDoPage} />
                 </Switch>
             </Router>
         );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ToDo = ({text, status, onStatusChange, onToDoDelete}) => (
+const ToDo = ({ text, status, onStatusChange, onToDoDelete }) => (
     <div className="todo row">
         <form className="todo-item col">
             <label>
@@ -20,7 +20,7 @@ const ToDo = ({text, status, onStatusChange, onToDoDelete}) => (
                 <i className="material-icons">delete</i>
             </button>
         </span>
-        <hr></hr>
+        <hr />
     </div>
 );
 

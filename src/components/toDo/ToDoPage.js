@@ -2,9 +2,9 @@ import ToDoList from './ToDoList';
 import ToDoForm from './ToDoForm';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { getToDos, saveToDo, deleteToDo, updateToDo } from '../../api/todos';
+import { getToDos, deleteToDo, createToDo, toggleStatus } from '../../api/todos';
 
-class ToDoBox extends React.Component {
+class ToDoPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,12 +19,11 @@ class ToDoBox extends React.Component {
     }
 
     handleToDoSubmit = (todo) => {
-        todo.status = "new";
-        saveToDo(todo).then((response) => {
-                let todos = this.state.data;
-                todos.push(response.todo);
-                this.setState({ data: todos });
-            });
+        createToDo(todo).then(response => {
+            let todos = this.state.data;
+            todos.push(response.todo);
+            this.setState({ data: todos });
+        });
     }
 
     handleToDoDelete = (toDelete) => {
@@ -43,12 +42,7 @@ class ToDoBox extends React.Component {
 
     handleStatusChange = (todo) => {
         let todos = this.state.data;
-        if (todo.status === "done") {
-            todo.status = "new";
-        } else {
-            todo.status = "done";
-        }
-        updateToDo(todo);
+        toggleStatus(todo);
         this.setState({ data: todos });
     }
 
@@ -63,10 +57,10 @@ class ToDoBox extends React.Component {
                         </ul>
                     </div>
                 </nav>
-                <div className="todoBox">
+                <div className="toDoPage">
                     <ToDoForm onToDoSubmit={this.handleToDoSubmit} />
                     <ToDoList
-                        data={this.state.data}
+                        todos={this.state.data}
                         handleToDoDelete={this.handleToDoDelete}
                         handleStatusChange={this.handleStatusChange}
                     />
@@ -76,4 +70,4 @@ class ToDoBox extends React.Component {
     }
 }
 
-export default withRouter(ToDoBox);
+export default withRouter(ToDoPage);

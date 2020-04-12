@@ -28,8 +28,8 @@ class Login extends React.Component {
         let password = this.state.password.trim();
         authenticate(username, password).then(_response => {
             this.props.history.push("/todos");
-        }).catch(_error => {
-            this.setState({ error: 'Bad credentials' });
+        }).catch(error => {
+            this.setState({ error: error });
         });
     }
 

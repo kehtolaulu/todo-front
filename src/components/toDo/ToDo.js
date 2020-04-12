@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ToDo = ({ text, status, onStatusChange, onToDoDelete }) => (
     <div className="todo row">
         <form className="todo-item col">

@@ -1,9 +1,29 @@
 import apiUrl from '../config';
 import axios from 'axios';
 
-export const getToDos = () => {
+// export const getToDos = () => {
+//     return axios.get(
+//         apiUrl + '/todos',
+//         {
+//             headers: {
+//                 'Authorization': localStorage.jwt
+//             }
+//         }
+//     ).then(response => response.data);
+// };
+
+export const getToDos = list => axios.get(
+    apiUrl + '/todo_lists/' + list._id + '/todos',
+    {
+        headers: {
+            'Authorization': localStorage.jwt
+        }
+    }
+).then(response => response.data);
+
+export const getToDoLists = () => {
     return axios.get(
-        apiUrl + '/todos',
+        apiUrl + '/todo_lists',
         {
             headers: {
                 'Authorization': localStorage.jwt

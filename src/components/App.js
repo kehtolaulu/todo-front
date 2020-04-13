@@ -12,8 +12,8 @@ class App extends React.Component {
                 <Switch>
                     <LoginRoute exact path="/signup" component={SignUp} />
                     <LoginRoute exact path="/login" component={Login} />
-                    <Route exact path="/"> {<Redirect to="/todos" />} </Route>
-                    <PrivateRoute exact path="/todos" component={ToDoPage} />
+                    <Route exact path="/"> {<Redirect to="/todo_lists" />} </Route>
+                    <PrivateRoute exact path="/todo_lists" component={ToDoPage} />
                 </Switch>
             </Router>
         );

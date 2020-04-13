@@ -1,38 +1,41 @@
 import ToDoList from './ToDoList';
 import ToDoForm from './ToDoForm';
+import ToDos from './ToDos';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { getToDos, deleteToDo, createToDo, toggleStatus } from '../../api/todos';
+import { getToDos, deleteToDo, createToDo, toggleStatus, getToDoLists } from '../../api/todos';
 
 class ToDoPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
+            toDos: [],
+            lists: []
         };
     }
 
-    loadToDosFromServer = () => {
-        getToDos().then(todos => {
-            this.setState({ data: todos });
+    componentDidMount = () => {
+        this.loadToDoLists();
+    }
+
+    loadToDoLists = () => {
+        getToDoLists().then(lists => {
+            this.setState({ lists: lists });
         });
+        // this.setState({ toDos: this.state.lists[0].toDos })
     }
 
     handleToDoSubmit = (todo) => {
         createToDo(todo).then(response => {
-            let todos = this.state.data;
+            let todos = this.state.toDos;
             todos.push(response.todo);
-            this.setState({ data: todos });
+            this.setState({ toDos: todos });
         });
     }
 
     handleToDoDelete = (toDelete) => {
         deleteToDo(toDelete);
-        this.setState({ data: this.state.data.filter(todo => todo._id !== toDelete._id) });
-    }
-
-    componentDidMount = () => {
-        this.loadToDosFromServer();
+        this.setState({ toDos: this.state.toDos.filter(todo => todo._id !== toDelete._id) });
     }
 
     handleSignOut = () => {
@@ -41,29 +44,54 @@ class ToDoPage extends React.Component {
     }
 
     handleStatusChange = (todo) => {
-        let todos = this.state.data;
+        let todos = this.state.toDos;
         toggleStatus(todo);
-        this.setState({ data: todos });
+        this.setState({ toDos: todos });
+    }
+
+    loadToDos = (list) => {
+        getToDos(list).then(toDos => {
+            this.setState({ toDos: toDos });
+        });
+    }
+
+    onListChange = (list) => {
+        this.loadToDos(list);
     }
 
     render() {
+        let lists = this.state.lists.map(list => (
+            <ToDoList
+                key={list._id}
+                title={list.title}
+                onClick={() => this.onListChange(list)} />
+        ));
         return (
             <div>
                 <nav>
                     <div className="nav-wrapper brown lighten-3">
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            <li><a className="black-text" onClick={this.handleSignOut}>Sign out</a></li>
+                            <li><a href="#!" className="black-text" onClick={this.handleSignOut}>Sign out</a></li>
                             <li></li>
                         </ul>
                     </div>
                 </nav>
-                <div className="toDoPage">
-                    <ToDoForm onToDoSubmit={this.handleToDoSubmit} />
-                    <ToDoList
-                        todos={this.state.data}
-                        handleToDoDelete={this.handleToDoDelete}
-                        handleStatusChange={this.handleStatusChange}
-                    />
+                <div>
+                    <div className="row">
+                        <div className="toDoLists col s3 offset-s1">
+                            <div class="collection">
+                                {lists}
+                            </div>
+                        </div>
+                        <div className="toDoPage col s7">
+                            <ToDoForm onToDoSubmit={this.handleToDoSubmit} />
+                            <ToDos
+                                todos={this.state.toDos}
+                                handleToDoDelete={this.handleToDoDelete}
+                                handleStatusChange={this.handleStatusChange}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         );

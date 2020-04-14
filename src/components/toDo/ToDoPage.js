@@ -1,16 +1,16 @@
-import ToDoList from './ToDoList';
+import ToDoListsPreview from './ToDoListsPreview';
 import ToDoForm from './ToDoForm';
-import ToDos from './ToDos';
+import ToDoList from './ToDoList';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { getToDos, deleteToDo, createToDo, toggleStatus, getToDoLists } from '../../api/todos';
+import { deleteToDo, createToDo, toggleStatus, getToDoLists } from '../../api/todos';
 
 class ToDoPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            toDos: [],
-            lists: []
+            lists: null,
+            currentList: null
         };
     }
 
@@ -21,8 +21,8 @@ class ToDoPage extends React.Component {
     loadToDoLists = () => {
         getToDoLists().then(lists => {
             this.setState({ lists: lists });
+            this.setState({ currentList: lists[0] });
         });
-        // this.setState({ toDos: this.state.lists[0].toDos })
     }
 
     handleToDoSubmit = (todo) => {
@@ -49,23 +49,11 @@ class ToDoPage extends React.Component {
         this.setState({ toDos: todos });
     }
 
-    loadToDos = (list) => {
-        getToDos(list).then(toDos => {
-            this.setState({ toDos: toDos });
-        });
-    }
-
     onListChange = (list) => {
-        this.loadToDos(list);
+        this.setState({ currentList: list });
     }
 
     render() {
-        let lists = this.state.lists.map(list => (
-            <ToDoList
-                key={list._id}
-                title={list.title}
-                onClick={() => this.onListChange(list)} />
-        ));
         return (
             <div>
                 <nav>
@@ -78,18 +66,20 @@ class ToDoPage extends React.Component {
                 </nav>
                 <div>
                     <div className="row">
-                        <div className="toDoLists col s3 offset-s1">
-                            <div class="collection">
-                                {lists}
-                            </div>
+                        <div className="to-do-lists col s3 offset-s1">
+                            <ToDoListsPreview
+                                lists={this.state.lists}
+                                current={this.state.currentList}
+                                onClick={this.onListChange} />
                         </div>
-                        <div className="toDoPage col s7">
+                        <div className="col s7">
                             <ToDoForm onToDoSubmit={this.handleToDoSubmit} />
-                            <ToDos
-                                todos={this.state.toDos}
-                                handleToDoDelete={this.handleToDoDelete}
-                                handleStatusChange={this.handleStatusChange}
-                            />
+                            {this.state.currentList ?
+                                <ToDoList
+                                    list={this.state.currentList}
+                                    handleToDoDelete={this.handleToDoDelete}
+                                    handleStatusChange={this.handleStatusChange}
+                                /> : ""}
                         </div>
                     </div>
                 </div>

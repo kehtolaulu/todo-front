@@ -3,7 +3,7 @@ import ToDoForm from './ToDoForm';
 import ToDoList from './ToDoList';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { deleteToDo, createToDo, toggleStatus, getToDoLists } from '../../api/todos';
+import { getToDos, deleteToDo, createToDo, toggleStatus, getToDoLists } from '../../api/todos';
 
 class ToDoPage extends React.Component {
     constructor(props) {
@@ -22,14 +22,15 @@ class ToDoPage extends React.Component {
         getToDoLists().then(lists => {
             this.setState({ lists: lists });
             this.setState({ currentList: lists[0] });
+            this.loadToDos(this.state.currentList);
         });
     }
 
     handleToDoSubmit = (todo) => {
-        createToDo(todo).then(response => {
-            let todos = this.state.toDos;
-            todos.push(response.todo);
-            this.setState({ toDos: todos });
+        createToDo(todo, this.state.currentList).then(response => {
+            let list = this.state.currentList;
+            list.toDos.push(response.todo);
+            this.setState({ currentList: list });
         });
     }
 
@@ -51,6 +52,14 @@ class ToDoPage extends React.Component {
 
     onListChange = (list) => {
         this.setState({ currentList: list });
+    }
+
+    loadToDos = () => {
+        let currentList = this.state.currentList;
+        getToDos(currentList).then(toDos => {
+            currentList.toDos = toDos;
+            this.setState({ currentList: currentList });
+        });
     }
 
     render() {
@@ -76,7 +85,7 @@ class ToDoPage extends React.Component {
                             <ToDoForm onToDoSubmit={this.handleToDoSubmit} />
                             {this.state.currentList ?
                                 <ToDoList
-                                    list={this.state.currentList}
+                                    toDos={this.state.currentList.toDos}
                                     handleToDoDelete={this.handleToDoDelete}
                                     handleStatusChange={this.handleStatusChange}
                                 /> : ""}

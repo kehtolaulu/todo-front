@@ -32,8 +32,8 @@ export const getToDoLists = () => {
     ).then(response => response.data);
 };
 
-export const saveToDo = todo => axios.post(
-    apiUrl + '/todos',
+export const saveToDo = (todo, list) => axios.post(
+    apiUrl + '/todo_lists/' + list._id + '/todos',
     JSON.stringify(todo),
     {
         headers: {
@@ -43,9 +43,9 @@ export const saveToDo = todo => axios.post(
     }
 ).then(response => response.data);
 
-export const createToDo = todo => {
+export const createToDo = (todo, list) => {
     todo.status = "new";
-    return saveToDo(todo);
+    return saveToDo(todo, list);
 };
 
 export const deleteToDo = toDelete => axios.delete(

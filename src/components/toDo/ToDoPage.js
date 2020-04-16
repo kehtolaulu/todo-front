@@ -35,8 +35,11 @@ class ToDoPage extends React.Component {
     }
 
     handleToDoDelete = (toDelete) => {
-        deleteToDo(toDelete);
-        this.setState({ toDos: this.state.toDos.filter(todo => todo._id !== toDelete._id) });
+        deleteToDo(toDelete, this.state.currentList);
+        let newToDos = this.state.currentList.toDos.filter(todo => todo._id !== toDelete._id);
+        let list = this.state.currentList;
+        list.toDos = newToDos;
+        this.setState({ currentList: list });
     }
 
     handleSignOut = () => {
@@ -46,7 +49,7 @@ class ToDoPage extends React.Component {
 
     handleStatusChange = (todo) => {
         let todos = this.state.toDos;
-        toggleStatus(todo);
+        toggleStatus(todo, this.state.currentList);
         this.setState({ toDos: todos });
     }
 

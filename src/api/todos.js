@@ -48,15 +48,15 @@ export const createToDo = (todo, list) => {
     return saveToDo(todo, list);
 };
 
-export const deleteToDo = toDelete => axios.delete(
-    apiUrl + "/todos/" + toDelete._id, {
+export const deleteToDo = (todo, list) => axios.delete(
+    apiUrl + "/todo_lists/" + list._id + '/todos/' + todo._id, {
     headers: {
         'Authorization': localStorage.jwt
     }
 });
 
-export const updateToDo = todo => axios.put(
-    apiUrl + '/todos/' + todo._id,
+export const updateToDo = (todo, list) => axios.put(
+    apiUrl + '/todo_lists/' + list._id + '/todos/' + todo._id,
     todo,
     {
         headers: {
@@ -65,11 +65,11 @@ export const updateToDo = todo => axios.put(
     }
 );
 
-export const toggleStatus = todo => {
+export const toggleStatus = (todo, list) => {
     if (todo.status === "done") {
         todo.status = "new";
     } else {
         todo.status = "done";
     }
-    updateToDo(todo);
+    updateToDo(todo, list);
 };

@@ -4,6 +4,7 @@ import ToDoList from './ToDoList';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { getToDos, deleteToDo, createToDo, toggleStatus, getToDoLists } from '../../api/todos';
+import { createToDoList } from '../../api/toDoLists';
 
 class ToDoPage extends React.Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class ToDoPage extends React.Component {
         getToDoLists().then(lists => {
             this.setState({ lists: lists });
             this.setState({ currentList: lists[0] });
-            this.loadToDos(this.state.currentList);
+            this.loadToDos();
         });
     }
 
@@ -31,6 +32,14 @@ class ToDoPage extends React.Component {
             let list = this.state.currentList;
             list.toDos.push(response.todo);
             this.setState({ currentList: list });
+        });
+    }
+
+    handleToDoListSubmit = (list) => {
+        createToDoList(list).then(response => {
+            let newLists = this.state.lists;
+            newLists.push(list);
+            this.setState({ lists: newLists });
         });
     }
 
@@ -55,9 +64,11 @@ class ToDoPage extends React.Component {
 
     onListChange = (list) => {
         this.setState({ currentList: list });
+        this.loadToDos();
     }
 
     loadToDos = () => {
+        debugger
         let currentList = this.state.currentList;
         getToDos(currentList).then(toDos => {
             currentList.toDos = toDos;
@@ -82,7 +93,8 @@ class ToDoPage extends React.Component {
                             <ToDoListsPreview
                                 lists={this.state.lists}
                                 current={this.state.currentList}
-                                onClick={this.onListChange} />
+                                onClick={this.onListChange}
+                                onToDoListSubmit={this.handleToDoListSubmit} />
                         </div>
                         <div className="col s7">
                             <ToDoForm onToDoSubmit={this.handleToDoSubmit} />

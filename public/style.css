@@ -41,3 +41,7 @@ h1 {
 .to-do-lists {
     margin-top: 3rem;
 }
+
+.collection-item:last-child {
+    border-bottom: 1px solid #e0e0e0 !important;
+}

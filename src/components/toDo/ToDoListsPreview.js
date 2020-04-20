@@ -25,6 +25,7 @@ class ToDoListsPreview extends React.Component {
     render() {
         let current = this.props.current?._id;
         return (
+            <div>
             <div className="collection">
                 <div>
                     {(this.props.lists || []).map(list => (
@@ -36,7 +37,8 @@ class ToDoListsPreview extends React.Component {
                         </a>
                     ))}
                 </div>
-                <div className="collection-item">
+            </div>
+                <div>
                     <form onSubmit={this.handleSubmit}>
                         <div>
                             <div className="input-field">

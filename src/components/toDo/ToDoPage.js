@@ -20,11 +20,13 @@ class ToDoPage extends React.Component {
     }
 
     loadToDoLists = () => {
-        getToDoLists().then(lists => {
-            this.setState({ lists: lists });
-            this.setState({ currentList: lists[0] });
-            this.loadToDos();
-        });
+        if (!this.state.lists) {
+            getToDoLists().then(lists => {
+                this.setState({ lists: lists });
+                this.setState({ currentList: lists[0] });
+                this.loadToDos();
+            });
+        }
     }
 
     handleToDoSubmit = (todo) => {
@@ -63,12 +65,12 @@ class ToDoPage extends React.Component {
     }
 
     onListChange = (list) => {
-        this.setState({ currentList: list });
-        this.loadToDos();
+        this.setState({ currentList: list }, () => {
+            this.loadToDos();
+        });
     }
 
     loadToDos = () => {
-        debugger
         let currentList = this.state.currentList;
         getToDos(currentList).then(toDos => {
             currentList.toDos = toDos;
@@ -89,14 +91,14 @@ class ToDoPage extends React.Component {
                 </nav>
                 <div>
                     <div className="row">
-                        <div className="to-do-lists col s3 offset-s1">
+                        <div className="to-do-lists col s2 offset-s1">
                             <ToDoListsPreview
                                 lists={this.state.lists}
                                 current={this.state.currentList}
                                 onClick={this.onListChange}
                                 onToDoListSubmit={this.handleToDoListSubmit} />
                         </div>
-                        <div className="col s7">
+                        <div className="col s7 offset-s1">
                             <ToDoForm onToDoSubmit={this.handleToDoSubmit} />
                             {this.state.currentList ?
                                 <ToDoList

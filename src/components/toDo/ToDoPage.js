@@ -4,7 +4,7 @@ import ToDoList from './ToDoList';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { getToDos, deleteToDo, createToDo, toggleStatus, getToDoLists } from '../../api/todos';
-import { createToDoList } from '../../api/toDoLists';
+import { createToDoList, deleteToDoList } from '../../api/toDoLists';
 
 class ToDoPage extends React.Component {
     constructor(props) {
@@ -40,8 +40,16 @@ class ToDoPage extends React.Component {
     handleToDoListSubmit = (list) => {
         createToDoList(list).then(response => {
             let newLists = this.state.lists;
-            newLists.push(list);
+            newLists.push(response.list);
             this.setState({ lists: newLists });
+        });
+    }
+
+    handleToDoListDelete = (toDelete) => {
+        deleteToDoList(toDelete);
+        let newLists = this.state.lists.filter(list => list._id !== toDelete._id);
+        this.setState({ lists: newLists }, () => {
+            this.onListChange(this.state.lists[0]);
         });
     }
 
@@ -96,7 +104,8 @@ class ToDoPage extends React.Component {
                                 lists={this.state.lists}
                                 current={this.state.currentList}
                                 onClick={this.onListChange}
-                                onToDoListSubmit={this.handleToDoListSubmit} />
+                                onToDoListSubmit={this.handleToDoListSubmit}
+                                onToDoListDelete={this.handleToDoListDelete} />
                         </div>
                         <div className="col s7 offset-s1">
                             <ToDoForm onToDoSubmit={this.handleToDoSubmit} />

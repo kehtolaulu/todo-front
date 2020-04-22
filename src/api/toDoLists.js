@@ -10,3 +10,12 @@ export const createToDoList = list => axios.post(
         }
     }
 ).then(response => response.data);
+
+export const deleteToDoList = list => axios.delete(
+    apiUrl + '/todo_lists/' + list._id,
+    {
+        headers: {
+            'Authorization': localStorage.jwt
+        }
+    }
+).then(response => response.data);

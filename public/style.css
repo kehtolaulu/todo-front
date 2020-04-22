@@ -42,6 +42,19 @@ h1 {
     margin-top: 3rem;
 }
 
-.collection-item:last-child {
-    border-bottom: 1px solid #e0e0e0 !important;
+.delete-list-button {
+    float: right;
+}
+
+.input-field {
+    margin-top: 0;
+}
+
+.list-input {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.input-field .prefix.right {
+    right: 0;
 }

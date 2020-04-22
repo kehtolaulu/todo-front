@@ -26,18 +26,22 @@ class ToDoListsPreview extends React.Component {
         let current = this.props.current?._id;
         return (
             <div>
-            <div className="collection">
-                <div>
+                <div className="lists">
                     {(this.props.lists || []).map(list => (
-                        <a href="#!"
-                            className={"collection-item " + (list._id === current ? "active" : "")}
-                            onClick={() => this.props.onClick(list)}
-                            key={list._id}>
-                            {list.title}
-                        </a>
+                        <div className="input-field collection-item">
+                            <i class="material-icons prefix ">format_list_bulleted</i>
+                            <input type="text"
+                                className={"list-input " + (list._id === current ? "active" : "")}
+                                onClick={() => this.props.onClick(list)}
+                                key={list._id}
+                                value={list.title} />
+                            <button className={"delete-list-button btn-flat delete-button-span prefix " + (list._id === current ? "" : "hide")}
+                                disabled={!(list._id === current)} onClick={() => this.props.onToDoListDelete(list)}>
+                                <i className="material-icons right">delete</i>
+                            </button>
+                        </div>
                     ))}
                 </div>
-            </div>
                 <div>
                     <form onSubmit={this.handleSubmit}>
                         <div>

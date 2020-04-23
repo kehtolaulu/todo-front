@@ -87,7 +87,7 @@ class ToDoPage extends React.Component {
     }
 
     handleToDoListUpdate = (list, newTitle) => {
-        updateToDoList(list, newTitle).then(response => {
+        updateToDoList(list, newTitle).then(_response => {
             let oldList = this.state.lists[list._id];
             oldList.title = newTitle;
             this.setState({ lists: this.state.lists });

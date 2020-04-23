@@ -4,7 +4,7 @@ import ToDoList from './ToDoList';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { getToDos, deleteToDo, createToDo, toggleStatus, getToDoLists } from '../../api/todos';
-import { createToDoList, deleteToDoList } from '../../api/toDoLists';
+import { createToDoList, deleteToDoList, updateToDoList } from '../../api/toDoLists';
 
 class ToDoPage extends React.Component {
     constructor(props) {
@@ -86,6 +86,14 @@ class ToDoPage extends React.Component {
         });
     }
 
+    handleToDoListUpdate = (list, newTitle) => {
+        updateToDoList(list, newTitle).then(response => {
+            let oldList = this.state.lists[list._id];
+            oldList.title = newTitle;
+            this.setState({ lists: this.state.lists });
+        });
+    }
+
     render() {
         return (
             <div>
@@ -105,7 +113,8 @@ class ToDoPage extends React.Component {
                                 current={this.state.currentList}
                                 onClick={this.onListChange}
                                 onToDoListSubmit={this.handleToDoListSubmit}
-                                onToDoListDelete={this.handleToDoListDelete} />
+                                onToDoListDelete={this.handleToDoListDelete}
+                                onToDoListUpdate={this.handleToDoListUpdate} />
                         </div>
                         <div className="col s7 offset-s1">
                             <ToDoForm onToDoSubmit={this.handleToDoSubmit} />

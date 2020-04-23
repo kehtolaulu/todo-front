@@ -19,3 +19,13 @@ export const deleteToDoList = list => axios.delete(
         }
     }
 ).then(response => response.data);
+
+export const updateToDoList = (list, title) => axios.post(
+    apiUrl + '/todo_lists/' + list._id,
+    { "title": title },
+    {
+        headers: {
+            'Authorization': localStorage.jwt
+        }
+    }
+).then(response => response.data);

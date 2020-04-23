@@ -2,7 +2,7 @@ import apiUrl from '../config';
 import axios from 'axios';
 
 export const getToDos = list => axios.get(
-    apiUrl + '/todo_lists/' + list._id + '/todos',
+    `${apiUrl}/todo_lists/${list._id}/todos`,
     {
         headers: {
             'Authorization': localStorage.jwt
@@ -12,7 +12,7 @@ export const getToDos = list => axios.get(
 
 export const getToDoLists = () => {
     return axios.get(
-        apiUrl + '/todo_lists',
+        `${apiUrl}/todo_lists`,
         {
             headers: {
                 'Authorization': localStorage.jwt
@@ -22,7 +22,7 @@ export const getToDoLists = () => {
 };
 
 export const saveToDo = (todo, list) => axios.post(
-    apiUrl + '/todo_lists/' + list._id + '/todos',
+    `${apiUrl}/todo_lists/${list._id}/todos`,
     JSON.stringify(todo),
     {
         headers: {
@@ -38,14 +38,15 @@ export const createToDo = (todo, list) => {
 };
 
 export const deleteToDo = (todo, list) => axios.delete(
-    apiUrl + "/todo_lists/" + list._id + '/todos/' + todo._id, {
-    headers: {
-        'Authorization': localStorage.jwt
-    }
-});
+    `${apiUrl}/todo_lists/${list._id}/todos/${todo._id}`,
+    {
+        headers: {
+            'Authorization': localStorage.jwt
+        }
+    });
 
 export const updateToDo = (todo, list) => axios.put(
-    apiUrl + '/todo_lists/' + list._id + '/todos/' + todo._id,
+    `${apiUrl}/todo_lists/${list._id}/todos/${todo._id}`,
     todo,
     {
         headers: {

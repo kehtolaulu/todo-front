@@ -22,16 +22,15 @@ class ToDoPage extends React.Component {
     loadToDoLists = () => {
         if (!this.state.lists) {
             getToDoLists().then(lists => {
-                this.setState({ lists: lists });
-                this.setState({ currentList: lists[0] });
+                this.setState({ lists: lists, currentList: lists[0] });
                 this.loadToDos();
             });
         }
     }
 
     handleToDoSubmit = (todo) => {
-        createToDo(todo, this.state.currentList).then(response => {
-            let list = this.state.currentList;
+        let list = this.state.currentList;
+        createToDo(todo, list).then(response => {
             list.toDos.push(response.todo);
             this.setState({ currentList: list });
         });
@@ -73,16 +72,14 @@ class ToDoPage extends React.Component {
     }
 
     onListChange = (list) => {
-        this.setState({ currentList: list }, () => {
-            this.loadToDos();
-        });
+        this.setState({ currentList: list }, this.loadToDos);
     }
 
     loadToDos = () => {
         let currentList = this.state.currentList;
         getToDos(currentList).then(toDos => {
             currentList.toDos = toDos;
-            this.setState({ currentList: currentList });
+            this.setState({ currentList });
         });
     }
 

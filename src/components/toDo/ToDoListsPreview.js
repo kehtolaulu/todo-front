@@ -1,4 +1,5 @@
 import React from 'react';
+import ToDoListPreview from './ToDoListPreview';
 
 class ToDoListsPreview extends React.Component {
     constructor(props) {
@@ -32,19 +33,13 @@ class ToDoListsPreview extends React.Component {
             <div>
                 <div className="lists">
                     {(this.props.lists || []).map(list => (
-                        <div className="input-field collection-item">
-                            <i className="material-icons prefix ">format_list_bulleted</i>
-                            <input type="text"
-                                className={"list-input " + (list._id === current ? "active" : "")}
-                                onClick={() => this.props.onClick(list)}
-                                key={list._id}
-                                defaultValue={list.title}
-                                onChange={(e) => this.handleListUpdate(e, list)} />
-                            <button className={"delete-list-button btn-flat delete-button-span prefix " + (list._id === current ? "" : "hide")}
-                                disabled={!(list._id === current)} onClick={() => this.props.onToDoListDelete(list)}>
-                                <i className="material-icons right">delete</i>
-                            </button>
-                        </div>
+                        <ToDoListPreview
+                            list={list}
+                            isCurrent={list._id === current}
+                            onClick={() => this.props.onClick(list)}
+                            onListUpdate={(e) => this.handleListUpdate(e, list)}
+                            onListDelete={() => this.props.onToDoListDelete(list)}
+                        />
                     ))}
                 </div>
                 <div>

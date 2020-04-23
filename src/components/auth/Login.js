@@ -27,7 +27,7 @@ class Login extends React.Component {
         let username = this.state.username.trim();
         let password = this.state.password.trim();
         authenticate(username, password).then(_response => {
-            this.props.history.push("/todos");
+            this.props.history.push("/todo_lists");
         }).catch(error => {
             this.setState({ error: error });
         });

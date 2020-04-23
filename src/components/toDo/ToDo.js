@@ -1,3 +1,5 @@
+import React from 'react'; // eslint-disable-line no-unused-vars
+
 const ToDo = ({ text, status, onStatusChange, onToDoDelete }) => (
     <div className="todo row">
         <form className="todo-item col">

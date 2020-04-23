@@ -1,17 +1,3 @@
-@media (min-width: 400px) {
-    .toDoPage {
-        margin-left: 20%;
-        margin-right: 20%;
-        width: 60%;
-    }
-}
-
-@media (max-width: 400px) {
-    .toDoPage {
-        margin: 0;
-    }
-}
-
 .todo {
     word-wrap: break-word;
 }
@@ -50,4 +36,21 @@ h1 {
 
 .todo-item {
     margin: auto;
+}
+
+.to-do-lists {
+    margin-top: 3rem;
+}
+
+.input-field {
+    margin-top: 0;
+}
+
+.list-input {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.input-field .prefix.right {
+    right: 0;
 }

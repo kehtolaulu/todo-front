@@ -1,3 +1,5 @@
+import React from 'react'; // eslint-disable-line no-unused-vars
+
 const UsernameField = ({ value, onChange, error }) => (
     <div className="input-field">
         <input

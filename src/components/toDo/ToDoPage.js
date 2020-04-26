@@ -5,6 +5,9 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { getToDos, deleteToDo, createToDo, toggleStatus, getToDoLists } from '../../api/todos';
 import { createToDoList, deleteToDoList, updateToDoList } from '../../api/toDoLists';
+import { loadToDos, loadLists } from '../../actions/index';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 class ToDoPage extends React.Component {
     constructor(props) {
@@ -22,7 +25,9 @@ class ToDoPage extends React.Component {
     loadToDoLists = () => {
         if (!this.state.lists) {
             getToDoLists().then(lists => {
-                this.setState({ lists: lists, currentList: lists[0] });
+                // this.setState({ lists: lists, currentList: lists[0] });
+                this.props.dispatch(loadLists(lists));
+                debugger
                 this.loadToDos();
             });
         }
@@ -78,8 +83,9 @@ class ToDoPage extends React.Component {
     loadToDos = () => {
         let currentList = this.state.currentList;
         getToDos(currentList).then(toDos => {
-            currentList.toDos = toDos;
-            this.setState({ currentList });
+            // currentList.toDos = toDos;
+            // this.setState({ currentList });
+            this.props.dispatch(loadToDos(toDos));
         });
     }
 
@@ -129,4 +135,8 @@ class ToDoPage extends React.Component {
     }
 }
 
-export default withRouter(ToDoPage);
+export default compose(
+    withRouter,
+    connect()
+)(ToDoPage);
+// export default withRouter(ToDoPage);

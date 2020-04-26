@@ -16,7 +16,7 @@ class App extends React.Component {
                     <PrivateRoute exact path="/todo_lists" component={ToDoPage} />
                 </Switch>
             </Router>
-        );
+        )
     }
 }
 
